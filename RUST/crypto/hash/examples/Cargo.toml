@@ -1,0 +1,12 @@
+[package]
+name = "crypto-hash-examples"
+version = "0.1.0"
+publish = false
+edition = "2018"
+
+[dependencies]
+trueman-crypto-hash = { version = "0.1.0", path = ".." }
+
+[[example]]
+name = "crypto-hash-fnv128a"
+path = "src/fnv128a.rs"

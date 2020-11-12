@@ -1,0 +1,17 @@
+MY_CC := gcc -g -Wall
+MY_CX := g++ -g -Wall --std=gnu++11
+MY_RM := rm -f
+
+MY_INC := -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -I../../../../include
+MY_LIB := -L../../../../src/crypto -ltrueman_crypto -lpthread -ldl
+
+all: exe_c exe_cpp
+
+exe_c: main.c
+	$(MY_CC) $(MY_INC) -o $@ $^ $(MY_LIB)
+
+exe_cpp: main.cpp
+	$(MY_CX) $(MY_INC) -o $@ $^ $(MY_LIB)
+
+clean:
+	$(MY_RM) exe_cpp exe_c

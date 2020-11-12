@@ -1,0 +1,32 @@
+[package]
+name = "util-hash-examples"
+version = "0.1.0"
+publish = false
+edition = "2018"
+
+[dependencies]
+trueman-util-hash = { version = "0.1.0", path = ".." }
+
+[[example]]
+name = "util-hash-jenkins"
+path = "src/jenkins.rs"
+
+[[example]]
+name = "util-hash-wang"
+path = "src/wang.rs"
+
+[[example]]
+name = "util-hash-bkdr"
+path = "src/bkdr.rs"
+
+[[example]]
+name = "util-hash-fnv1"
+path = "src/fnv1.rs"
+
+[[example]]
+name = "util-hash-fnv1a"
+path = "src/fnv1a.rs"
+
+[[example]]
+name = "util-hash-xx"
+path = "src/xx.rs"
