@@ -10,3 +10,7 @@ trueman-crypto-hash = { version = "0.1.0", path = ".." }
 [[example]]
 name = "crypto-hash-fnv128a"
 path = "src/fnv128a.rs"
+
+[[example]]
+name = "crypto-hash-csum"
+path = "src/csum.rs"

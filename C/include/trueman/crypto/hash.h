@@ -70,6 +70,58 @@
     ) {
         TrueMan_CRYPTO_HASH_FNV128A_op.one(ptr, len, val);
     }
+    /*------------------------------------------------------------------------*/
+    #define TrueMan_CRYPTO_HASH_CSUM_len_blk 2
+    #define TrueMan_CRYPTO_HASH_CSUM_len_dgt 2
+    /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+    typedef struct TrueMan_CRYPTO_HASH_CSUM_ctx {
+        union {
+            TrueMan_U8_t  b[2];
+            TrueMan_U16_t s;
+        }             bak;
+        TrueMan_U32_t sum;
+    } TrueMan_CRYPTO_HASH_CSUM_CTX_t;
+    /*========================================================================*/
+    TrueMan_extern
+    TrueMan_CRYPTO_HASH_OP_t const TrueMan_CRYPTO_HASH_CSUM_op;
+    /*------------------------------------------------------------------------*/
+    static inline
+    TrueMan_CRYPTO_HASH_CSUM_CTX_t *TrueMan_CRYPTO_HASH_CSUM_init(
+        TrueMan_CRYPTO_HASH_CSUM_CTX_t *ctx
+    ) {
+        return((
+            TrueMan_CRYPTO_HASH_CSUM_CTX_t *
+        )TrueMan_CRYPTO_HASH_CSUM_op.init(ctx));
+    }
+    /*------------------------------------------------------------------------*/
+    static inline
+    TrueMan_CRYPTO_HASH_CSUM_CTX_t *TrueMan_CRYPTO_HASH_CSUM_update(
+        TrueMan_CRYPTO_HASH_CSUM_CTX_t       *ctx,
+        void                           const *ptr,
+        TrueMan_USIZE_t                       len
+    ) {
+        return((
+            TrueMan_CRYPTO_HASH_CSUM_CTX_t *
+        )TrueMan_CRYPTO_HASH_CSUM_op.update(ctx, ptr, len));
+    }
+    /*------------------------------------------------------------------------*/
+    static inline
+    TrueMan_CRYPTO_HASH_CSUM_CTX_t *TrueMan_CRYPTO_HASH_CSUM_final(
+        TrueMan_CRYPTO_HASH_CSUM_CTX_t *ctx                                  ,
+        TrueMan_U8_t                    val[TrueMan_CRYPTO_HASH_CSUM_len_dgt]
+    ) {
+        return((
+            TrueMan_CRYPTO_HASH_CSUM_CTX_t *
+        )TrueMan_CRYPTO_HASH_CSUM_op.final(ctx, val));
+    }
+    /*------------------------------------------------------------------------*/
+    static inline void TrueMan_CRYPTO_HASH_CSUM_one(
+        void            const *ptr                                  ,
+        TrueMan_USIZE_t        len                                  ,
+        TrueMan_U8_t           val[TrueMan_CRYPTO_HASH_CSUM_len_dgt]
+    ) {
+        TrueMan_CRYPTO_HASH_CSUM_op.one(ptr, len, val);
+    }
     /*########################################################################*/
     #if defined(__cplusplus)
         /*####################################################################*/
@@ -85,6 +137,7 @@
                 protected:
                     inline
                     Op(TrueMan_CRYPTO_HASH_OP_t const &op, void *arg): op_(op) {
+                        op.init(this + 1);
                     }
                     /*--------------------------------------------------------*/
                 public:
@@ -150,6 +203,31 @@
                         /*----------------------------------------------------*/
                     private:
                         TrueMan_CRYPTO_HASH_FNV128A_CTX_t ctx_;
+                };
+                /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+            }
+            /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+            namespace csum {
+                /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+                constexpr std::uintptr_t len_blk =
+                    TrueMan_CRYPTO_HASH_CSUM_len_blk
+                ;
+                constexpr std::uintptr_t len_dgt =
+                    TrueMan_CRYPTO_HASH_CSUM_len_dgt
+                ;
+                /*------------------------------------------------------------*/
+                constexpr TrueMan_CRYPTO_HASH_OP_t const &op =
+                    TrueMan_CRYPTO_HASH_CSUM_op
+                ;
+                /*------------------------------------------------------------*/
+                class Ctx: public Op {
+                    public:
+                        inline
+                        Ctx(): Op(op, &ctx_) {
+                        }
+                        /*----------------------------------------------------*/
+                    private:
+                        TrueMan_CRYPTO_HASH_CSUM_CTX_t ctx_;
                 };
                 /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
             }

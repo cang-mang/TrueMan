@@ -6,8 +6,8 @@
         std::cout << "failure:" << std::endl; \
         std::cout << "\t---- " << __FILE__ << ':' << __LINE__; \
         std::cout << " (" << __FUNCTION__ << ") ----" << std::endl; \
-        std::cout << "\t left: " << (x) << std::endl; \
-        std::cout << "\tright: " << (y) << std::endl; \
+        std::cout << "\t left: " << (unsigned)(x) << std::endl; \
+        std::cout << "\tright: " << (unsigned)(y) << std::endl; \
         return(-1); \
     } \
 } while(0)
@@ -364,8 +364,7 @@ int main() {
     std::cout << "len_blk=" << TrueMan::crypto::hash::fnv128a::op.len_blk << std::endl;
     std::cout << "len_dgt=" << TrueMan::crypto::hash::fnv128a::op.len_dgt << std::endl;
 
-    ctx.init()
-       .update(TST_req, 14)
+    ctx.update(TST_req, 14)
        .update(TST_req + 26, sizeof(TST_req) - 26)
        .update("Client", 6)
        .final(val);

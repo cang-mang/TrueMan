@@ -3,6 +3,7 @@
  * 摘要操作接口。
  * 历史：
  *     2020-11-05，完成FNV128a-HASH算法操作。
+ *     2020-11-12，完成网络报文校验和算法算法操作。
  */
 /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
 use std::ffi::c_void;
@@ -30,8 +31,21 @@ pub trait Ctx {
     const LEN_BLK: usize;
     const LEN_DGT: usize;
 }
+/*============================================================================*/
+/*#[inline(always)]
+fn zeroize(buf: &mut [u8]) {
+    let mut cur = 0_usize;
+    while cur < buf.len() {
+        unsafe {
+            std::ptr::write_volatile(buf.as_mut_ptr().add(cur), 0_u8);
+        }
+
+        cur += 1_usize;
+    }
+}*/
 /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
 pub mod fnv128a;
+pub mod csum;
 /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
 #[no_mangle]
 pub static TrueMan_CRYPTO_HASH_FNV128A_op: Op = Op {
@@ -42,5 +56,16 @@ pub static TrueMan_CRYPTO_HASH_FNV128A_op: Op = Op {
     len_ctx: std::mem::size_of::<fnv128a::Ctx>(),
     len_blk: fnv128a::Ctx::LEN_BLK              ,
     len_dgt: fnv128a::Ctx::LEN_DGT
+};
+/*----------------------------------------------------------------------------*/
+#[no_mangle]
+pub static TrueMan_CRYPTO_HASH_CSUM_op: Op = Op {
+    init   : csum::init                      ,
+    update : csum::update                    ,
+    r#final: csum::r#final                   ,
+    one    : csum::one                       ,
+    len_ctx: std::mem::size_of::<csum::Ctx>(),
+    len_blk: csum::Ctx::LEN_BLK              ,
+    len_dgt: csum::Ctx::LEN_DGT
 };
 /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
