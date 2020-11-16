@@ -1,0 +1,12 @@
+[package]
+name = "util-code-examples"
+version = "0.1.0"
+publish = false
+edition = "2018"
+
+[dependencies]
+trueman-util-code = { version = "0.1.0", path = ".." }
+
+[[example]]
+name = "util-code-base16"
+path = "src/base16.rs"

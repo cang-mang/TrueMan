@@ -3,6 +3,11 @@
  * 散列操作接口。
  * 历史：
  *     2020-11-12，完成Jenkins-HASH散列操作。
+ *     2020-11-12，完成Wang-HASH散列操作。
+ *     2020-11-12，完成BKDR-HASH散列操作。
+ *     2020-11-12，完成FNV1-HASH散列操作。
+ *     2020-11-12，完成FNV1a-HASH散列操作。
+ *     2020-11-12，完成XX-HASH散列操作。
  */
 #if !defined(TrueMan_UTIL_HASH)
     #define TrueMan_UTIL_HASH
@@ -113,7 +118,8 @@
             /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
             namespace jenkins {
                 /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
-                static inline std::uint32_t x_n(
+                static inline
+                std::uint32_t x_n(
                     std::uint32_t  const key[],
                     std::uintptr_t       cnt  ,
                     std::uint32_t        seed
@@ -121,7 +127,8 @@
                     return(TrueMan_UTIL_HASH_JENKINS_x_n(key, cnt, seed));
                 }
                 /*------------------------------------------------------------*/
-                static inline std::uint32_t x_3(
+                static inline
+                std::uint32_t x_3(
                     std::uint32_t a   ,
                     std::uint32_t b   ,
                     std::uint32_t c   ,
@@ -130,7 +137,8 @@
                     return(TrueMan_UTIL_HASH_JENKINS_x_3(a, b, c, seed));
                 }
                 /*------------------------------------------------------------*/
-                static inline std::uint32_t x_2(
+                static inline
+                std::uint32_t x_2(
                     std::uint32_t a   ,
                     std::uint32_t b   ,
                     std::uint32_t seed
@@ -138,14 +146,16 @@
                     return(TrueMan_UTIL_HASH_JENKINS_x_2(a, b, seed));
                 }
                 /*------------------------------------------------------------*/
-                static inline std::uint32_t x_1(
+                static inline
+                std::uint32_t x_1(
                     std::uint32_t a   ,
                     std::uint32_t seed
                 ) {
                     return(TrueMan_UTIL_HASH_JENKINS_x_1(a, seed));
                 }
                 /*------------------------------------------------------------*/
-                static inline std::uint32_t x_0(
+                static inline
+                std::uint32_t x_0(
                     void           const *ptr ,
                     std::uintptr_t        len ,
                     std::uint32_t         seed
@@ -156,13 +166,15 @@
             }
             /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
             namespace wang {
-                static inline std::uint64_t direct(
+                static inline
+                std::uint64_t direct(
                     std::uint64_t key
                 ) {
                     return(TrueMan_UTIL_HASH_WANG_direct(key));
                 }
                 /*------------------------------------------------------------*/
-                static inline std::uint64_t inverse(
+                static inline
+                std::uint64_t inverse(
                     std::uint64_t key
                 ) {
                     return(TrueMan_UTIL_HASH_WANG_inverse(key));
@@ -170,7 +182,8 @@
             }
             /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
             namespace bkdr {
-                static inline std::uint32_t x_0(
+                static inline
+                std::uint32_t x_0(
                     void           const *ptr  ,
                     std::uintptr_t        len  ,
                     std::uint32_t         seed ,
@@ -179,7 +192,8 @@
                     return(TrueMan_UTIL_HASH_BKDR_x_0(ptr, len, seed, magic));
                 }
                 /*------------------------------------------------------------*/
-                static inline std::uint32_t time33(
+                static inline
+                std::uint32_t time33(
                     void           const *ptr  ,
                     std::uintptr_t        len  ,
                     std::uint32_t         magic
@@ -189,14 +203,16 @@
             }
             /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
             namespace fnv1 {
-                static inline std::uint32_t x32(
+                static inline
+                std::uint32_t x32(
                     void           const *ptr,
                     std::uintptr_t        len
                 ) {
                     return(TrueMan_UTIL_HASH_FNV1_x32(ptr, len));
                 }
                 /*------------------------------------------------------------*/
-                static inline std::uint64_t x64(
+                static inline
+                std::uint64_t x64(
                     void           const *ptr,
                     std::uintptr_t        len
                 ) {
@@ -205,14 +221,16 @@
             }
             /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
             namespace fnv1a {
-                static inline std::uint32_t x32(
+                static inline
+                std::uint32_t x32(
                     void           const *ptr,
                     std::uintptr_t        len
                 ) {
                     return(TrueMan_UTIL_HASH_FNV1A_x32(ptr, len));
                 }
                 /*------------------------------------------------------------*/
-                static inline std::uint64_t x64(
+                static inline
+                std::uint64_t x64(
                     void           const *ptr,
                     std::uintptr_t        len
                 ) {
@@ -221,7 +239,8 @@
             }
             /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
             namespace xx {
-                static inline std::uint32_t x32(
+                static inline
+                std::uint32_t x32(
                     void           const *ptr ,
                     std::uintptr_t        len ,
                     std::uint32_t         seed
@@ -229,7 +248,8 @@
                     return(TrueMan_UTIL_HASH_XX_x32(ptr, len, seed));
                 }
                 /*------------------------------------------------------------*/
-                static inline std::uint64_t x64(
+                static inline
+                std::uint64_t x64(
                     void           const *ptr ,
                     std::uintptr_t        len ,
                     std::uint64_t         seed

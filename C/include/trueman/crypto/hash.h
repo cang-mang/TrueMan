@@ -3,6 +3,7 @@
  * 摘要操作接口。
  * 历史：
  *     2020-11-12，完成FNV128a-HASH算法操作。
+ *     2020-11-13，完成网络报文校验和算法算法操作。
  */
 #if !defined(TrueMan_CRYPTO_HASH)
     #define TrueMan_CRYPTO_HASH

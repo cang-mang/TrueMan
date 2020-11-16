@@ -1,8 +1,10 @@
 [workspace]
   members = [
     "RUST/util/hash",
+    "RUST/util/code",
     "RUST/crypto/hash",
 
     "RUST/util/hash/examples",
+    "RUST/util/code/examples",
     "RUST/crypto/hash/examples",
   ]
