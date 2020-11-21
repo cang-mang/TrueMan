@@ -10,3 +10,15 @@ trueman-util-code = { version = "0.1.0", path = ".." }
 [[example]]
 name = "util-code-base16"
 path = "src/base16.rs"
+
+[[example]]
+name = "util-code-base64"
+path = "src/base64.rs"
+
+[[example]]
+name = "util-code-ucs"
+path = "src/ucs.rs"
+
+[[example]]
+name = "util-code-uintx"
+path = "src/uintx.rs"

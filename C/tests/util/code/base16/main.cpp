@@ -7,8 +7,8 @@
         std::cout << "failure:" << std::endl; \
         std::cout << "\t---- " << __FILE__ << ':' << __LINE__; \
         std::cout << " (" << __FUNCTION__ << ") ----" << std::endl; \
-        std::cout << "\t left: " << (x) << std::endl; \
-        std::cout << "\tright: " << (y) << std::endl; \
+        std::cout << "\t left: " << (unsigned)(x) << std::endl; \
+        std::cout << "\tright: " << (unsigned)(y) << std::endl; \
         return(-1); \
     } \
 } while(0)
@@ -62,7 +62,7 @@ int main() {
     std::uint8_t d_1[128];
     std::memset(d_1, 255, sizeof(d_1));
 
-    std::uintptr_t l_1 = TrueMan::util::code::base16::decode(d_0, l_0, d_1);
+    std::intptr_t l_1 = TrueMan::util::code::base16::decode(d_0, l_0, d_1);
     if(l_1 < 0) {
         TST_assert_eq(0, 1);
     }
