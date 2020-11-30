@@ -20,6 +20,8 @@ impl std::default::Default for Ctx {
     }
 }
 /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+use std::convert::TryFrom;
+/*============================================================================*/
 impl super::Ctx for Ctx {
     fn init(&mut self) -> &mut Self {
         self.buf[1] = 0_u8;
@@ -180,10 +182,11 @@ impl super::Ctx for Ctx {
         self.sum = !self.sum;
 
         let sum = self.sum as u16;
-        let tmp = sum.to_ne_bytes();
+        let val = <&mut [u8; Self::LEN_DGT]>::try_from(
+            &mut val[..Self::LEN_DGT]
+        ).unwrap();
 
-        val[0] = tmp[0];
-        val[1] = tmp[1];
+        *val = sum.to_ne_bytes();
 
         self.init()
     }

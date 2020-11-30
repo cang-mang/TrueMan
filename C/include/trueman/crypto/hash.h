@@ -4,6 +4,7 @@
  * 历史：
  *     2020-11-12，完成FNV128a-HASH算法操作。
  *     2020-11-13，完成网络报文校验和算法算法操作。
+ *     2020-11-30，完成MD5-HASH算法操作。
  */
 #if !defined(TrueMan_CRYPTO_HASH)
     #define TrueMan_CRYPTO_HASH
@@ -123,6 +124,56 @@
     ) {
         TrueMan_CRYPTO_HASH_CSUM_op.one(ptr, len, val);
     }
+    /*------------------------------------------------------------------------*/
+    #define TrueMan_CRYPTO_HASH_MD5_len_blk 64
+    #define TrueMan_CRYPTO_HASH_MD5_len_dgt 16
+    /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+    typedef struct TrueMan_CRYPTO_HASH_MD5_ctx {
+        TrueMan_U32_t hash[4];
+        TrueMan_U32_t block[16];
+        TrueMan_U64_t count;
+    } TrueMan_CRYPTO_HASH_MD5_CTX_t;
+    /*========================================================================*/
+    TrueMan_extern
+    TrueMan_CRYPTO_HASH_OP_t const TrueMan_CRYPTO_HASH_MD5_op;
+    /*------------------------------------------------------------------------*/
+    static inline
+    TrueMan_CRYPTO_HASH_MD5_CTX_t *TrueMan_CRYPTO_HASH_MD5_init(
+        TrueMan_CRYPTO_HASH_MD5_CTX_t *ctx
+    ) {
+        return((
+            TrueMan_CRYPTO_HASH_MD5_CTX_t *
+        )TrueMan_CRYPTO_HASH_MD5_op.init(ctx));
+    }
+    /*------------------------------------------------------------------------*/
+    static inline
+    TrueMan_CRYPTO_HASH_MD5_CTX_t *TrueMan_CRYPTO_HASH_MD5_update(
+        TrueMan_CRYPTO_HASH_MD5_CTX_t       *ctx,
+        void                          const *ptr,
+        TrueMan_USIZE_t                      len
+    ) {
+        return((
+            TrueMan_CRYPTO_HASH_MD5_CTX_t *
+        )TrueMan_CRYPTO_HASH_MD5_op.update(ctx, ptr, len));
+    }
+    /*------------------------------------------------------------------------*/
+    static inline
+    TrueMan_CRYPTO_HASH_MD5_CTX_t *TrueMan_CRYPTO_HASH_MD5_final(
+        TrueMan_CRYPTO_HASH_MD5_CTX_t *ctx                                 ,
+        TrueMan_U8_t                   val[TrueMan_CRYPTO_HASH_MD5_len_dgt]
+    ) {
+        return((
+            TrueMan_CRYPTO_HASH_MD5_CTX_t *
+        )TrueMan_CRYPTO_HASH_MD5_op.final(ctx, val));
+    }
+    /*------------------------------------------------------------------------*/
+    static inline void TrueMan_CRYPTO_HASH_MD5_one(
+        void            const *ptr                                 ,
+        TrueMan_USIZE_t        len                                 ,
+        TrueMan_U8_t           val[TrueMan_CRYPTO_HASH_MD5_len_dgt]
+    ) {
+        TrueMan_CRYPTO_HASH_MD5_op.one(ptr, len, val);
+    }
     /*########################################################################*/
     #if defined(__cplusplus)
         /*####################################################################*/
@@ -229,6 +280,31 @@
                         /*----------------------------------------------------*/
                     private:
                         TrueMan_CRYPTO_HASH_CSUM_CTX_t ctx_;
+                };
+                /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+            }
+            /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+            namespace md5 {
+                /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+                constexpr std::uintptr_t len_blk =
+                    TrueMan_CRYPTO_HASH_MD5_len_blk
+                ;
+                constexpr std::uintptr_t len_dgt =
+                    TrueMan_CRYPTO_HASH_MD5_len_dgt
+                ;
+                /*------------------------------------------------------------*/
+                constexpr TrueMan_CRYPTO_HASH_OP_t const &op =
+                    TrueMan_CRYPTO_HASH_MD5_op
+                ;
+                /*------------------------------------------------------------*/
+                class Ctx: public Op {
+                    public:
+                        inline
+                        Ctx(): Op(op, &ctx_) {
+                        }
+                        /*----------------------------------------------------*/
+                    private:
+                        TrueMan_CRYPTO_HASH_MD5_CTX_t ctx_;
                 };
                 /*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
             }

@@ -179,7 +179,7 @@ int main(void) {
     std::cout << "len_blk=" << TrueMan::crypto::hash::csum::op.len_blk << std::endl;
     std::cout << "len_dgt=" << TrueMan::crypto::hash::csum::op.len_dgt << std::endl;
 
-    TrueMan_U8_t val[2] = { 0xFF, 0xFF };
+    std::uint8_t val[2] = { 0xFF, 0xFF };
     if(TST_exe(TST_txt_0, sizeof(TST_txt_0) - 1, val)) {
         std::cout << '\"' << TST_txt_0 << '\"' << std::endl;
         return(-1);
